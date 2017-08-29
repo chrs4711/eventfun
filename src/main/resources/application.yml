@@ -1,0 +1,17 @@
+spring:
+  jackson:
+    serialization:
+      indent_output: true
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5Dialect
+    hibernate:
+      ddl-auto: create
+      show-sql: true
+
+logging:
+  level:
+    de:
+      chris:
+        fun: DEBUG

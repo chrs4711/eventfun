@@ -1,14 +1,17 @@
 package de.chris.fun.eventfun.events;
 
+import javax.persistence.Entity;
+
+@Entity
 public class CartItemRemovedEvent extends BasicDomainEvent {
 
-    private final String cartId;
+    private final Long cartId;
     private final String sku;
     private final String price;
     private final String currency;
     private final String desc;
 
-    public CartItemRemovedEvent(String cartId, String sku, String price, String currency, String desc) {
+    public CartItemRemovedEvent(Long cartId, String sku, String price, String currency, String desc) {
         super();
         this.cartId = cartId;
         this.sku = sku;
@@ -17,7 +20,7 @@ public class CartItemRemovedEvent extends BasicDomainEvent {
         this.desc = desc;
     }
 
-    public String getCartId() {
+    public Long getCartId() {
         return cartId;
     }
 

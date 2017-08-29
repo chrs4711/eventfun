@@ -6,6 +6,7 @@ Trying to implement a shopping cart with event sourcing techniques.
 
 * [Some slides from InnoQ](https://de.slideshare.net/mploed/event-sourcing-einfuhrung-und-best-practices)
 * [Microsoft Azure article](https://docs.microsoft.com/en-us/azure/architecture/patterns/event-sourcing)
+* [Thoughts on event stores](https://cqrs.wordpress.com/documents/building-event-storage/)
 
 ## Modeling Cart with Domain events
 
@@ -14,57 +15,6 @@ Trying to implement a shopping cart with event sourcing techniques.
 * CartItemRemovedEvent
 * CartPayedEvent
 
-### CartCreatedEvent
-
-```java
-public class CartCreatedEvent {
-
-    private String eventId;
-    private Date eventTime;
-
-    private String cartId;
-
-    public CartCreatedEvent(String cartId) {
-        this.cartId = cartId;
-        this.eventTime = new Date();
-    }
-}
-
-```
-
-### CartItemAddedEvent
-
-```java
-public class CartItemAddedEvent {
-
-    private String eventId;
-    private Date eventTime;
-
-    private String cartId;
-    private String sku;
-    private String price;
-    private String currency;
-    private String desc;
-
-    public CartCreatedEvent(...) {
-        ...
-    }
-}
-
-```
-
-### CartItemRemovedEvent
-
-```java
-public class CartItemRemovedEvent {
-
-    private String eventId;
-    private Date eventTime;
-
-    private String cartId;
-    private String sku;
-}
-```
 
 ## Other classes
 

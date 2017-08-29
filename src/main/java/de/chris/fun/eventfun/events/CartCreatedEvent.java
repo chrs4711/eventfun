@@ -1,14 +1,17 @@
 package de.chris.fun.eventfun.events;
 
+import javax.persistence.Entity;
+
+@Entity
 public class CartCreatedEvent extends BasicDomainEvent {
 
-    private final String cartId;
+    private final Long cartId;
 
-    public CartCreatedEvent(String cartId) {
+    public CartCreatedEvent(Long cartId) {
         this.cartId = cartId;
     }
 
-    public String getCartId() {
+    public Long getCartId() {
         return cartId;
     }
 

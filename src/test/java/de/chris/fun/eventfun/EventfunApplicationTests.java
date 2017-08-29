@@ -13,13 +13,13 @@ public class EventfunApplicationTests {
 
     @Test
     public void test() {
-        final CartCreatedEvent cce = new CartCreatedEvent("4711");
+        final CartCreatedEvent cce = new CartCreatedEvent(1337L);
         System.out.println(cce);
 
-        final CartItemAddedEvent ciae = new CartItemAddedEvent("1337", "10005", "10.00", "EUR", "FU Spray");
+        final CartItemAddedEvent ciae = new CartItemAddedEvent(1337L, "10005", "10.00", "EUR", "FU Spray");
         System.out.println(ciae);
 
-        final CartItemRemovedEvent cire = new CartItemRemovedEvent("1337", "10005", "10.00", "EUR", "FU Spray");
+        final CartItemRemovedEvent cire = new CartItemRemovedEvent(1337L, "10005", "10.00", "EUR", "FU Spray");
         System.out.println(cire);
     }
 
