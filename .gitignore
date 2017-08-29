@@ -1,0 +1,9 @@
+target
+.classpath
+.project
+.settings/
+.idea
+/.springBeans
+/JPOSClient/
+/ibmjpos/
+/package_contents/
