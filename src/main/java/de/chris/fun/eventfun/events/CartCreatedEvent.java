@@ -1,8 +1,5 @@
 package de.chris.fun.eventfun.events;
 
-import javax.persistence.Entity;
-
-@Entity
 public class CartCreatedEvent extends BasicDomainEvent {
 
     private final Long cartId;

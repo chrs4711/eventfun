@@ -4,9 +4,9 @@ import java.util.Date;
 import java.util.UUID;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.MappedSuperclass;
 
 /**
  * Stuff every domain event should have.
@@ -14,16 +14,19 @@ import javax.persistence.MappedSuperclass;
  * @author christian
  *
  */
-@MappedSuperclass
+@Entity
 public abstract class BasicDomainEvent {
 
     @Id
     @GeneratedValue
-    @Column(name = "event_id", updatable = false)
+    @Column(name = "id", updatable = false)
     protected String eventId;
 
-    @Column(name = "event_time")
+    @Column(name = "time")
     protected Date eventDate;
+
+    @Column(name = "payload")
+    protected String payload;
 
     public BasicDomainEvent() {
         eventDate = new Date();
