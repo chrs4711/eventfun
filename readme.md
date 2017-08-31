@@ -15,6 +15,17 @@ Trying to implement a shopping cart with event sourcing techniques.
 * CartItemRemovedEvent
 * CartPayedEvent
 
+## Database model
+
+The domain events will be stored in one table with the following attributes:
+
+* id
+* date
+* payload
+
+The event itself will be stored in serialized form in the payload field.
+This decouples the database structure with the events itself.
+
 
 ## Other classes
 

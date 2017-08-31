@@ -1,5 +1,7 @@
 package de.chris.fun.eventfun.dtos;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 /**
  * Represents an item in a shopping cart. Used in the controller for
  * deserializing request bodies into it.
@@ -7,6 +9,7 @@ package de.chris.fun.eventfun.dtos;
  * @author christian
  *
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Item {
 
     private String sku;
