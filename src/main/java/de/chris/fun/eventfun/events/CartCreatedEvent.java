@@ -1,20 +1,23 @@
 package de.chris.fun.eventfun.events;
 
-public class CartCreatedEvent extends BasicDomainEvent {
+import javax.persistence.Entity;
 
-    private final Long cartId;
+@Entity
+public class CartCreatedEvent extends CartEvent {
+	
+	@SuppressWarnings("unused")
+	private CartCreatedEvent() {
+		// hibernate wants that.
+	}
+	
+	public CartCreatedEvent(String aggregateId) {
+		super(aggregateId);
+	}
 
-    public CartCreatedEvent(Long cartId) {
-        this.cartId = cartId;
-    }
-
-    public Long getCartId() {
-        return cartId;
-    }
-
-    @Override
-    public String toString() {
-        return "CartCreatedEvent [cartId=" + cartId + ", eventId=" + eventId + ", eventDate=" + eventDate + "]";
-    }
+	@Override
+	public String toString() {
+		return "CartCreatedEvent [aggregateId=" + aggregateId + ", eventId=" + eventId + ", eventTimestamp="
+				+ eventTimestamp + ", data=" + data + "]";
+	}
 
 }

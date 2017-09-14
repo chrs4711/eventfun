@@ -1,6 +1,6 @@
 package de.chris.fun.eventfun.events;
 
-public class CartItemAddedEvent extends BasicDomainEvent {
+public class CartItemAddedEvent extends CartEvent {
 
     private final Long cartId;
     private final String sku;
@@ -9,7 +9,7 @@ public class CartItemAddedEvent extends BasicDomainEvent {
     private final String desc;
 
     public CartItemAddedEvent(Long cartId, String sku, String price, String currency, String desc) {
-        super();
+        super(cartId.toString()); // XXX
         this.cartId = cartId;
         this.sku = sku;
         this.price = price;
@@ -40,7 +40,7 @@ public class CartItemAddedEvent extends BasicDomainEvent {
     @Override
     public String toString() {
         return "CartItemAddedEvent [cartId=" + cartId + ", sku=" + sku + ", price=" + price + ", currency=" + currency
-                + ", desc=" + desc + ", eventId=" + eventId + ", eventDate=" + eventDate + "]";
+                + ", desc=" + desc + ", eventId=" + aggregateId + ", eventDate=" + eventTimestamp + "]";
     }
 
 }

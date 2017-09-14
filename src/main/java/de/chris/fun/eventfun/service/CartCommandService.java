@@ -22,14 +22,15 @@ public class CartCommandService {
     public Long createCart() {
 
         // TODO: create a new aggregate (the id of the cart?!)
-
-        final Long cartId = new Random().nextLong();
-        final CartCreatedEvent e = new CartCreatedEvent(cartId);
-        logger.debug("event: " + e);
-        // save the event in the repository
-
-        logger.error("not implemented yet");
-        return cartId;
+        // 
+        // final Long cartId = new Random().nextLong();
+        // final CartCreatedEvent e = new CartCreatedEvent(cartId);
+        // logger.debug("event: " + e);
+        // // save the event in the repository
+        // 
+        // logger.error("not implemented yet");
+        // return cartId;
+    	return null;
     }
 
     public void addItemToCart(String cartId, Item item) {
