@@ -2,6 +2,12 @@
 
 Trying to implement a shopping cart with event sourcing techniques.
 
+## Todo next
+
+* Implement DAO with jdbctemplate or sth. We don't seem to profit much from
+  hibernate as the storing of the event information will require multiple
+  (transaction)
+
 ## Links
 
 * [Some slides from InnoQ](https://de.slideshare.net/mploed/event-sourcing-einfuhrung-und-best-practices)
