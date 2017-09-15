@@ -6,7 +6,7 @@ Trying to implement a shopping cart with event sourcing techniques.
 
 * Implement DAO with jdbctemplate or sth. We don't seem to profit much from
   hibernate as the storing of the event information will require multiple
-  (transaction)
+  interactions with the DB (transaction).
 
 ## Links
 

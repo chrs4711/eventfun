@@ -12,50 +12,50 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import de.chris.fun.eventfun.events.CartAggregate;
 import de.chris.fun.eventfun.events.CartAggregateRepository;
-import de.chris.fun.eventfun.events.CartCreatedEvent;
+import de.chris.fun.eventfun.events.CartEvent;
 import de.chris.fun.eventfun.events.CartEventRepository;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class CartEventRepoTests {
 
-	@Autowired
-	private CartEventRepository cartEventRepo;
-	
-	@Autowired
-	private CartAggregateRepository aggregateRepo;
+    @Autowired
+    private CartEventRepository cartEventRepo;
 
-	@Before
-	public void before() {
-		System.out.println("-----------------------------------");
-		System.out.println();
-	}
+    @Autowired
+    private CartAggregateRepository aggregateRepo;
 
-	@After
-	public void after() {
-		System.out.println();
-		System.out.println("-----------------------------------");
-	}
+    @Before
+    public void before() {
+        System.out.println("-----------------------------------");
+        System.out.println();
+    }
 
-	@Test
-	public void testStoreEvent() {
-		
-		// create a new aggregate!
-		final CartAggregate cagg = new CartAggregate(UUID.randomUUID().toString(), 0);
+    @After
+    public void after() {
+        System.out.println();
+        System.out.println("-----------------------------------");
+    }
 
-		// new event
-		final CartCreatedEvent cce = new CartCreatedEvent(cagg.getAggregateId());
-		System.out.println(cce);
+    @Test
+    public void testStoreEvent() {
 
-		aggregateRepo.save(cagg);
-		cartEventRepo.save(cce);
+        // create a new aggregate!
+        final CartAggregate cagg = new CartAggregate(UUID.randomUUID().toString(), 0);
 
-		CartCreatedEvent tmp = (CartCreatedEvent) cartEventRepo.findOne(cce.getEventId());
-		System.out.println("retrieved cart event: " + tmp);
-		
-		CartAggregate tmp2 = aggregateRepo.findOne(cagg.getAggregateId());
-		System.out.println("retrieved aggregate: " + tmp2);
+        // new event
+        final CartEvent cce = new CartEvent(cagg.getAggregateId(), "foobar");
+        System.out.println(cce);
 
-	}
+        aggregateRepo.save(cagg);
+        cartEventRepo.save(cce);
+
+        final CartEvent tmp = cartEventRepo.findOne(cce.getEventId());
+        System.out.println("retrieved cart event: " + tmp);
+
+        final CartAggregate tmp2 = aggregateRepo.findOne(cagg.getAggregateId());
+        System.out.println("retrieved aggregate: " + tmp2);
+
+    }
 
 }

@@ -14,48 +14,63 @@ import javax.persistence.Id;
  *
  */
 @Entity(name = "cart_event")
-public abstract class CartEvent {
+public class CartEvent {
 
-	@Column(name = "aggregate_id", updatable = false)
-	protected String aggregateId;
+    @Column(name = "aggregate_id", updatable = false)
+    protected String aggregateId;
 
-	@Id
-	@Column(name = "event_id")
-	protected String eventId;
-	
-	@Column(name = "event_time")
-	protected Date eventTimestamp;
+    @Id
+    @Column(name = "event_id")
+    protected String eventId;
 
-	@Column(name = "data")
-	protected String data;
-	
-	protected CartEvent() {
-		// hibernate wants that
-	}
-	
-	public CartEvent(String aggregateId) {
-		this.aggregateId = aggregateId;
-		eventTimestamp = new Date();
-		eventId = UUID.randomUUID().toString();
-	}
-	
-	public String getEventId() {
-		return eventId;
-	}
+    @Column(name = "version")
+    protected int version;
 
-	public String getData() {
-		return data;
-	}
+    @Column(name = "event_time")
+    protected Date eventTimestamp;
 
-	public void setData(String data) {
-		this.data = data;
-	}
+    @Column(name = "data")
+    protected String data;
 
-	public String getAggregateId() {
-		return aggregateId;
-	}
+    protected CartEvent() {
+        // hibernate wants that
+    }
 
-	public Date getEventTimestamp() {
-		return eventTimestamp;
-	}
+    public CartEvent(String aggregateId, String data) {
+        this.aggregateId = aggregateId;
+        eventTimestamp = new Date();
+        eventId = UUID.randomUUID().toString();
+        this.data = data;
+    }
+
+    public String getEventId() {
+        return eventId;
+    }
+
+    public String getData() {
+        return data;
+    }
+
+    public String getAggregateId() {
+        return aggregateId;
+    }
+
+    public Date getEventTimestamp() {
+        return eventTimestamp;
+    }
+
+    public int getVersion() {
+        return version;
+    }
+
+    public void setVersion(int version) {
+        this.version = version;
+    }
+
+    @Override
+    public String toString() {
+        return "CartEvent [aggregateId=" + aggregateId + ", eventId=" + eventId + ", version=" + version
+                + ", eventTimestamp=" + eventTimestamp + ", data=" + data + "]";
+    }
+
 }

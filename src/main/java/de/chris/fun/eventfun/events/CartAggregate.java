@@ -13,33 +13,37 @@ import javax.persistence.Id;
 @Entity
 public class CartAggregate {
 
-	@Id
-	@Column(name = "aggregate_id")
-	private String aggregateId;
+    @Id
+    @Column(name = "aggregate_id")
+    private String aggregateId;
 
-	@Column(name = "version")
-	private int version;
+    @Column(name = "version")
+    private int version;
 
-	protected CartAggregate() {
+    protected CartAggregate() {
 
-	}
+    }
 
-	public CartAggregate(String aggregateId, int version) {
-		this.aggregateId = aggregateId;
-		this.version = version;
-	}
+    public CartAggregate(String aggregateId, int version) {
+        this.aggregateId = aggregateId;
+        this.version = version;
+    }
 
-	public String getAggregateId() {
-		return aggregateId;
-	}
+    public String getAggregateId() {
+        return aggregateId;
+    }
 
-	public int getVersion() {
-		return version;
-	}
+    public int getVersion() {
+        return version;
+    }
 
-	@Override
-	public String toString() {
-		return "CartAggregate [aggregateId=" + aggregateId + ", version=" + version + "]";
-	}
+    public void setVersion(int version) {
+        this.version = version;
+    }
+
+    @Override
+    public String toString() {
+        return "CartAggregate [aggregateId=" + aggregateId + ", version=" + version + "]";
+    }
 
 }

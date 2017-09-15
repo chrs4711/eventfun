@@ -1,13 +1,10 @@
 package de.chris.fun.eventfun.service;
 
-import java.util.Random;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import de.chris.fun.eventfun.dtos.Item;
-import de.chris.fun.eventfun.events.CartCreatedEvent;
 
 @Component
 public class CartCommandService {
@@ -22,15 +19,15 @@ public class CartCommandService {
     public Long createCart() {
 
         // TODO: create a new aggregate (the id of the cart?!)
-        // 
+        //
         // final Long cartId = new Random().nextLong();
         // final CartCreatedEvent e = new CartCreatedEvent(cartId);
         // logger.debug("event: " + e);
         // // save the event in the repository
-        // 
+        //
         // logger.error("not implemented yet");
         // return cartId;
-    	return null;
+        return null;
     }
 
     public void addItemToCart(String cartId, Item item) {
