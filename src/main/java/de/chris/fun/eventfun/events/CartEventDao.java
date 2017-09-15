@@ -45,10 +45,30 @@ public class CartEventDao {
 
         // store events ... we assume that they're in order :-)
         for (final CartEvent event : events) {
-            event.setVersion(++eventVersion);
+            event.setVersion(eventVersion++);
             eventRepo.save(event);
         }
 
+        // set aggregate to new version
+        agg.setVersion(eventVersion);
+        aggRepo.save(agg);
+
         // ------------- imaginary transaction boundary ------------------------
+    }
+
+    /**
+     * Only for testing !!1
+     * 
+     * @param aggregateId
+     */
+    public int getVersionForAggregate(String aggregateId) {
+
+        final CartAggregate agg = aggRepo.findOne(aggregateId);
+
+        if (agg == null)
+            throw new RuntimeException("Aggregate with id [" + aggregateId + "] not found");
+
+        return agg.getVersion();
+
     }
 }

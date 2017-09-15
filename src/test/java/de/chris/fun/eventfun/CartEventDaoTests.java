@@ -1,5 +1,7 @@
 package de.chris.fun.eventfun;
 
+import static org.junit.Assert.assertEquals;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
@@ -41,23 +43,26 @@ public class CartEventDaoTests {
     }
 
     @Test
-    public void storeMultipleEvents() {
+    public void testAggregateVersionIncremented() {
 
         final String aggregateId = UUID.randomUUID().toString();
 
         final List<CartEvent> cartEvents = Arrays.asList(
-                new CartEvent(aggregateId, "foobar"),
-                new CartEvent(aggregateId, "foob2ar"),
-                new CartEvent(aggregateId, "f3oobar"),
-                new CartEvent(aggregateId, "foo563bar"),
-                new CartEvent(aggregateId, "foobgae4fawar"),
-                new CartEvent(aggregateId, "foofasdfsbar"));
+                new CartEvent(aggregateId, ""),
+                new CartEvent(aggregateId, ""),
+                new CartEvent(aggregateId, ""),
+                new CartEvent(aggregateId, ""),
+                new CartEvent(aggregateId, ""),
+                new CartEvent(aggregateId, ""));
 
         eventDao.saveEventsForAggregate(aggregateId, 0, cartEvents);
 
         for (final CartEvent e : eventDao.getEventsForAggregate(aggregateId)) {
             System.out.println("got event: " + e);
         }
+
+        // check if the correct version was saved in the aggregate
+        assertEquals(6, eventDao.getVersionForAggregate(aggregateId));
 
     }
 
