@@ -14,6 +14,28 @@ Trying to implement a shopping cart with event sourcing techniques.
 * [Microsoft Azure article](https://docs.microsoft.com/en-us/azure/architecture/patterns/event-sourcing)
 * [Thoughts on event stores](https://cqrs.wordpress.com/documents/building-event-storage/)
 
+## Needed functionality
+
+### Creating a cart
+
+* Firing the CartCreatedEvent with necessary data (e.g. by whom)
+* passing the event to the event processor
+* storing the event
+
+### Adding item to cart
+
+* Firing ItemAddedEvent
+* pass event to the event processor
+* Store the event (error handling (don't use the event store for validation))?
+
+## Components
+
+* Some controller
+* Event processor / handler
+* Event Store (saving and fetching events) what about the domain objects?
+
+ 
+
 ## Modeling Cart with Domain events
 
 * CartCreatedEvent
@@ -30,7 +52,7 @@ The domain events will be stored in one table with the following attributes:
 * payload
 
 The event itself will be stored in serialized form in the payload field.
-This decouples the database structure with the events itself.
+This decouples the database structure with the events themselves.
 
 
 ## Other classes
