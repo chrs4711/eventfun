@@ -1,15 +1,3 @@
-/**
- * This code is property of:
- *
- * Hamm-Reno Group GmbH & Co. KG
- * Am Tie 7
- * D-49086 Osnabrück
- * Telefon: +49 (0)541 / 9584-0
- * Telefax: +49 (0)541 / 9584-9221
- *
- * (c) 2017 - 2017 all rights reserved.
- * 
- */
 package de.chris.fun.eventfun.store;
 
 import java.util.List;
@@ -27,7 +15,7 @@ import de.chris.fun.eventfun.store.serialize.DomainEventSerializ0r;
  *
  */
 @Component
-public class SpringDataJPAEventStore {
+public class SpringDataJPAEventStore implements EventStore {
 
     @Autowired
     private EventRepository eventRepo;
@@ -40,6 +28,7 @@ public class SpringDataJPAEventStore {
 
     private static final Logger logger = LoggerFactory.getLogger(SpringDataJPAEventStore.class);
 
+    @Override
     public String save(DomainEvent event) {
         final Aggregate agg = makeNewAggregate();
         aggRepo.save(agg);
@@ -47,6 +36,7 @@ public class SpringDataJPAEventStore {
         return save(event, agg.getAggregateId());
     }
 
+    @Override
     public String save(DomainEvent event, String aggregateId) {
 
         Aggregate agg = aggRepo.findOne(aggregateId);
@@ -73,6 +63,7 @@ public class SpringDataJPAEventStore {
         return agg.getAggregateId();
     }
 
+    @Override
     public List<Event> retrieveForAggregate(String aggregateId) {
         return eventRepo.findByAggregateIdOrderByVersion(aggregateId);
     }

@@ -17,7 +17,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import de.chris.fun.eventfun.dtos.Item;
-import de.chris.fun.eventfun.store.SpringDataJPAEventStore;
+import de.chris.fun.eventfun.store.EventStore;
 
 /**
  * @author Christian Wander
@@ -26,7 +26,7 @@ import de.chris.fun.eventfun.store.SpringDataJPAEventStore;
 public class CartCommandService {
 
     @Autowired
-    private SpringDataJPAEventStore eventStore;
+    private EventStore eventStore;
 
     private static final Logger logger = LoggerFactory.getLogger(CartCommandService.class);
 
