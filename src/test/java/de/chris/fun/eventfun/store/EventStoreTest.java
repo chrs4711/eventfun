@@ -25,7 +25,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import de.chris.fun.eventfun.domainevents.CartCreatedEvent;
 import de.chris.fun.eventfun.store.Event;
-import de.chris.fun.eventfun.store.EventStore;
+import de.chris.fun.eventfun.store.SpringDataJPAEventStore;
 
 /**
  * @author Christian Wander
@@ -36,7 +36,7 @@ import de.chris.fun.eventfun.store.EventStore;
 public class EventStoreTest {
 
     @Autowired
-    private EventStore eventStore;
+    private SpringDataJPAEventStore eventStore;
 
     @Test
     public void saveEventWithoutAggregate() {

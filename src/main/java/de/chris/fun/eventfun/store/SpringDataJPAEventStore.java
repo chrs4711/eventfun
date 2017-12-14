@@ -27,7 +27,7 @@ import de.chris.fun.eventfun.store.serialize.DomainEventSerializ0r;
  *
  */
 @Component
-public class EventStore {
+public class SpringDataJPAEventStore {
 
     @Autowired
     private EventRepository eventRepo;
@@ -38,7 +38,7 @@ public class EventStore {
     @Autowired
     private DomainEventSerializ0r serializ0r;
 
-    private static final Logger logger = LoggerFactory.getLogger(EventStore.class);
+    private static final Logger logger = LoggerFactory.getLogger(SpringDataJPAEventStore.class);
 
     public String save(DomainEvent event) {
         final Aggregate agg = makeNewAggregate();
