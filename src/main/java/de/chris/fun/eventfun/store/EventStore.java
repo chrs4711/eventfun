@@ -20,6 +20,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import de.chris.fun.eventfun.store.serialize.DomainEventSerializ0r;
+
 /**
  * @author Christian Wander
  *
@@ -33,7 +35,17 @@ public class EventStore {
     @Autowired
     private AggregateRepository aggRepo;
 
+    @Autowired
+    private DomainEventSerializ0r serializ0r;
+
     private static final Logger logger = LoggerFactory.getLogger(EventStore.class);
+
+    public String save(DomainEvent event) {
+        final Aggregate agg = makeNewAggregate();
+        aggRepo.save(agg);
+
+        return save(event, agg.getAggregateId());
+    }
 
     public String save(DomainEvent event, String aggregateId) {
 
@@ -47,9 +59,9 @@ public class EventStore {
         final Event e = new Event();
         e.setId(UUID.randomUUID().toString());
         e.setAggregateId(agg.getAggregateId());
-        e.setData(serialize(event));
-        e.setType(event.getClass().getName());
+        e.setType(event.getClass().getSimpleName());
         e.setVersion(newVersion);
+        e.setData(serializ0r.serialize(event));
 
         agg.setVersion(newVersion);
         logger.debug("updating aggregate: {}", agg);
@@ -66,15 +78,10 @@ public class EventStore {
     }
 
     private Aggregate makeNewAggregate() {
-        Aggregate agg = new Aggregate();
+        final Aggregate agg = new Aggregate();
         agg.setAggregateId(UUID.randomUUID().toString());
         agg.setVersion(0);
-        agg = aggRepo.save(agg); // TODO: remove side effect?
         return agg;
-    }
-
-    private String serialize(DomainEvent event) {
-        return "fake ser1alz0r";
     }
 
 }

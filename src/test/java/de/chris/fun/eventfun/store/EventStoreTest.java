@@ -10,7 +10,7 @@
  * (c) 2017 - 2017 all rights reserved.
  * 
  */
-package de.chris.fun.eventfun;
+package de.chris.fun.eventfun.store;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -39,17 +39,18 @@ public class EventStoreTest {
     private EventStore eventStore;
 
     @Test
-    public void saveEventToStore() {
+    public void saveEventWithoutAggregate() {
 
         final CartCreatedEvent cce = new CartCreatedEvent();
 
-        final String aggregateId = eventStore.save(cce, "");
+        final String aggregateId = eventStore.save(cce);
         assertNotNull(aggregateId);
         System.out.println(aggregateId);
 
         final List<Event> events = eventStore.retrieveForAggregate(aggregateId);
         assertNotNull(events);
         assertEquals(1, events.get(0).getVersion());
+        assertEquals("CartCreatedEvent", events.get(0).getType());
 
     }
 

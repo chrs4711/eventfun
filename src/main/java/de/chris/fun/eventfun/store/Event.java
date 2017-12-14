@@ -3,6 +3,12 @@ package de.chris.fun.eventfun.store;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
+/**
+ * Entity class used for persisting the event to the database
+ * 
+ * @author Christian Wander
+ *
+ */
 @Entity
 public class Event {
 
