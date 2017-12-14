@@ -8,10 +8,9 @@ import java.math.RoundingMode;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import de.chris.fun.eventfun.domainevents.CartCreatedEvent;
@@ -23,11 +22,14 @@ import de.chris.fun.eventfun.dtos.Item;
  *
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest
 public class EventStoreTest {
 
-    @Autowired
-    private EventStore eventStore;
+    private final EventStore eventStore = new MemoryEventStore();
+
+    @Before
+    public void setup() {
+        System.out.println("\n---------------------------------");
+    }
 
     @Test
     public void saveEventWithoutAggregate() {
@@ -42,7 +44,6 @@ public class EventStoreTest {
         assertNotNull(events);
         assertEquals(1, events.get(0).getVersion());
         assertEquals("CartCreatedEvent", events.get(0).getType());
-
     }
 
     @Test
