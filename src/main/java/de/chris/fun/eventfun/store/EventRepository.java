@@ -1,4 +1,4 @@
-package de.chris.fun.eventfun.events;
+package de.chris.fun.eventfun.store;
 
 import java.util.List;
 

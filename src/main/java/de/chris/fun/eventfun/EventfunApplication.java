@@ -9,10 +9,10 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import de.chris.fun.eventfun.events.Aggregate;
-import de.chris.fun.eventfun.events.AggregateRepository;
-import de.chris.fun.eventfun.events.Event;
-import de.chris.fun.eventfun.events.EventRepository;
+import de.chris.fun.eventfun.store.Aggregate;
+import de.chris.fun.eventfun.store.AggregateRepository;
+import de.chris.fun.eventfun.store.Event;
+import de.chris.fun.eventfun.store.EventRepository;
 
 @SpringBootApplication
 public class EventfunApplication implements CommandLineRunner {
