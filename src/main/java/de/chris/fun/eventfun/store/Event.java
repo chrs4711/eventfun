@@ -11,15 +11,25 @@ public class Event {
 
     private String aggregateId;
 
-    private int version;
+    private long version;
+
+    private String type;
 
     private String data;
 
-    public int getVersion() {
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public long getVersion() {
         return version;
     }
 
-    public void setVersion(int version) {
+    public void setVersion(long version) {
         this.version = version;
     }
 
@@ -45,6 +55,12 @@ public class Event {
 
     public void setData(String data) {
         this.data = data;
+    }
+
+    @Override
+    public String toString() {
+        return "Event [id=" + id + ", aggregateId=" + aggregateId + ", version=" + version + ", type=" + type
+                + ", data=" + data + "]";
     }
 
 }

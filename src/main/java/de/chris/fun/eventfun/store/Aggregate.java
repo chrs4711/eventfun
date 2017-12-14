@@ -3,14 +3,13 @@ package de.chris.fun.eventfun.store;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
-
 @Entity
 public class Aggregate {
 
     @Id
     private String aggregateId;
-    
-    private int version;
+
+    private long version;
 
     public String getAggregateId() {
         return aggregateId;
@@ -20,12 +19,17 @@ public class Aggregate {
         this.aggregateId = aggregateId;
     }
 
-    public int getVersion() {
+    public long getVersion() {
         return version;
     }
 
-    public void setVersion(int version) {
+    public void setVersion(long version) {
         this.version = version;
+    }
+
+    @Override
+    public String toString() {
+        return "Aggregate [aggregateId=" + aggregateId + ", version=" + version + "]";
     }
 
 }
