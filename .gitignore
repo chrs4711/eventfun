@@ -4,6 +4,3 @@ target
 .settings/
 .idea
 /.springBeans
-/JPOSClient/
-/ibmjpos/
-/package_contents/
