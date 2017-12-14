@@ -42,7 +42,7 @@ public class SpringDataJPAEventStore implements EventStore {
         Aggregate agg = aggRepo.findOne(aggregateId);
 
         if (agg == null)
-            agg = makeNewAggregate();
+            throw new NoSuchAggregateException(String.format("aggregate with id %s doesn't exist.", aggregateId));
 
         final long newVersion = agg.getVersion() + 1;
 

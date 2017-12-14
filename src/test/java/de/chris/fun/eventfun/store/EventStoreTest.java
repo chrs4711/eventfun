@@ -40,4 +40,10 @@ public class EventStoreTest {
 
     }
 
+    @Test(expected = NoSuchAggregateException.class)
+    public void saveEventInvalidAggregateId() {
+
+        eventStore.save(new CartCreatedEvent("test"), "foobar-shit-2232322");
+    }
+
 }
