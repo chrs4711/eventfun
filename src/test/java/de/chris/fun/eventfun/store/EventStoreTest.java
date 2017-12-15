@@ -4,10 +4,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
-import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -15,10 +13,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.junit4.SpringRunner;
-
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import de.chris.fun.eventfun.domainevents.CartCreatedEvent;
 import de.chris.fun.eventfun.domainevents.ItemAddedEvent;
@@ -67,37 +61,6 @@ public class EventStoreTest {
 
         assertEquals(13, events.size());
         assertTrue("Events not ordered by version", eventsOrderedByVersion(events));
-    }
-
-    @Test
-    public void testDomainEventConversion() throws JsonParseException, JsonMappingException, IOException {
-
-        final Event e = new Event();
-        e.setAggregateId("23233");
-        e.setId("213123213");
-        e.setType("CartCreatedEvent");
-        e.setVersion(1);
-        e.setData("{\"createdBy\":\"nobody\"}");
-
-        // ok let's assume we'll get a list with the available classes...
-        final List<Class<? extends DomainEvent>> clazzes = Arrays.asList(CartCreatedEvent.class, ItemAddedEvent.class);
-        clazzes.forEach(System.out::println);
-
-        final DomainEvent actual = createDomainEvent(e, clazzes);
-        assertEquals("CartCreatedEvent", actual.getClass().getSimpleName());
-
-    }
-
-    private DomainEvent createDomainEvent(Event e, List<Class<? extends DomainEvent>> possibleClasses)
-            throws JsonParseException, JsonMappingException, IOException {
-
-        final ObjectMapper om = new ObjectMapper();
-
-        for (final Class<? extends DomainEvent> c : possibleClasses)
-            if (c.getSimpleName().equals(e.getType()))
-                return om.readValue(e.getData(), c);
-
-        throw new RuntimeException("Unknown domain event: " + e.getType());
     }
 
     @Test(expected = NoSuchAggregateException.class)
