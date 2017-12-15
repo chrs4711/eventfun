@@ -12,11 +12,12 @@
  */
 package de.chris.fun.eventfun.store;
 
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -82,11 +83,13 @@ public class MemoryEventStore implements EventStore {
     @Override
     public List<Event> retrieveForAggregate(String aggregateId) {
 
-        final List<Event> events = new ArrayList<>();
+        final List<Event> events = eventMap.values().stream()
+                .filter(e -> e.getAggregateId().equals(aggregateId))
+                .collect(Collectors.toList());
 
-        for (final Event event : eventMap.values())
-            if (aggregateId.equals(event.getAggregateId()))
-                events.add(event);
+        Collections.sort(events, (e1, e2) -> {
+            return e1.getVersion() >= e2.getVersion() ? 1 : -1;
+        });
 
         return events;
     }

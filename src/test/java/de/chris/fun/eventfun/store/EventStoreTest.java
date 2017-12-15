@@ -2,6 +2,7 @@ package de.chris.fun.eventfun.store;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -52,13 +53,30 @@ public class EventStoreTest {
         final DomainEvent e = new CartCreatedEvent("test");
         final String aggId = eventStore.save(e);
 
-        eventStore.save(itemAddedEvent(), aggId);
-        eventStore.save(itemAddedEvent(), aggId);
-        eventStore.save(itemAddedEvent(), aggId);
-        eventStore.save(itemAddedEvent(), aggId);
+        for (int i = 1; i <= 12; i++)
+            eventStore.save(itemAddedEvent(), aggId);
 
         final List<Event> events = eventStore.retrieveForAggregate(aggId);
-        assertEquals(5, events.size());
+        events.forEach(System.out::println);
+
+        assertEquals(13, events.size());
+        assertTrue("Events not ordered by version", eventsOrderedByVersion(events));
+    }
+
+    private boolean eventsOrderedByVersion(List<Event> events) {
+
+        long expectedVersion = 1;
+        for (final Event e : events) {
+
+            System.out.printf("event %s, expected version: %d, actual: %d\n",
+                    e.getId(), expectedVersion, e.getVersion());
+
+            if (e.getVersion() != expectedVersion)
+                return false;
+
+            expectedVersion++;
+        }
+        return true;
     }
 
     @Test(expected = NoSuchAggregateException.class)
