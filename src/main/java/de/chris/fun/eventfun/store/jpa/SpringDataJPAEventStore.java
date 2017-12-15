@@ -1,4 +1,4 @@
-package de.chris.fun.eventfun.store;
+package de.chris.fun.eventfun.store.jpa;
 
 import java.util.List;
 import java.util.UUID;
@@ -8,6 +8,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import de.chris.fun.eventfun.store.Aggregate;
+import de.chris.fun.eventfun.store.DomainEvent;
+import de.chris.fun.eventfun.store.Event;
+import de.chris.fun.eventfun.store.EventStore;
+import de.chris.fun.eventfun.store.NoSuchAggregateException;
 import de.chris.fun.eventfun.store.serialize.DomainEventSerializ0r;
 
 /**

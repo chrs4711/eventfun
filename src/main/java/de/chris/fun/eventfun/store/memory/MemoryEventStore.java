@@ -1,4 +1,4 @@
-package de.chris.fun.eventfun.store;
+package de.chris.fun.eventfun.store.memory;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -10,6 +10,11 @@ import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import de.chris.fun.eventfun.store.Aggregate;
+import de.chris.fun.eventfun.store.DomainEvent;
+import de.chris.fun.eventfun.store.Event;
+import de.chris.fun.eventfun.store.EventStore;
+import de.chris.fun.eventfun.store.NoSuchAggregateException;
 import de.chris.fun.eventfun.store.serialize.DomainEventSerializ0r;
 import de.chris.fun.eventfun.store.serialize.JsonSerializ0r;
 

@@ -17,6 +17,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import de.chris.fun.eventfun.domainevents.CartCreatedEvent;
 import de.chris.fun.eventfun.domainevents.ItemAddedEvent;
 import de.chris.fun.eventfun.dtos.Item;
+import de.chris.fun.eventfun.store.memory.MemoryEventStore;
 
 /**
  * @author Christian Wander
