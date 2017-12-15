@@ -26,4 +26,9 @@ public class CartCreatedEvent implements DomainEvent {
         this.createdBy = createdBy;
     }
 
+    @Override
+    public String toString() {
+        return "CartCreatedEvent [createdBy=" + createdBy + "]";
+    }
+
 }
