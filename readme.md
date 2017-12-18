@@ -59,6 +59,7 @@ This decouples the database structure with the events themselves.
 
 ## Links
 
+* [Event sourcing in practice](https://ookami86.github.io/event-sourcing-in-practice)
 * [Some slides from InnoQ](https://de.slideshare.net/mploed/event-sourcing-einfuhrung-und-best-practices)
 * [Microsoft Azure article](https://docs.microsoft.com/en-us/azure/architecture/patterns/event-sourcing)
 * [Thoughts on event stores](https://cqrs.wordpress.com/documents/building-event-storage/)
