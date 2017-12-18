@@ -62,3 +62,7 @@ This decouples the database structure with the events themselves.
 * [Some slides from InnoQ](https://de.slideshare.net/mploed/event-sourcing-einfuhrung-und-best-practices)
 * [Microsoft Azure article](https://docs.microsoft.com/en-us/azure/architecture/patterns/event-sourcing)
 * [Thoughts on event stores](https://cqrs.wordpress.com/documents/building-event-storage/)
+* [Domain Command Patterns - Validation](https://jimmybogard.com/domain-command-patterns-validation/)
+* [Domain Command Patterns - Handlers](https://jimmybogard.com/domain-command-patterns-handlers/)
+
+
