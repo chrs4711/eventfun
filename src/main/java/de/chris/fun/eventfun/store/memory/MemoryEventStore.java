@@ -87,4 +87,9 @@ public class MemoryEventStore implements EventStore {
         return events;
     }
 
+    @Override
+    public boolean aggregateExists(String aggregateId) {
+        return aggMap.containsKey(aggregateId);
+    }
+
 }

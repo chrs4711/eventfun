@@ -37,6 +37,7 @@ public class EventStoreTest {
     public void saveEventWithoutAggregate() {
 
         final CartCreated cce = new CartCreated();
+        final String eventType = cce.getClass().getSimpleName();
 
         final String aggregateId = eventStore.save(cce);
         assertNotNull(aggregateId);
@@ -45,7 +46,7 @@ public class EventStoreTest {
         final List<Event> events = eventStore.retrieveForAggregate(aggregateId);
         assertNotNull(events);
         assertEquals(1, events.get(0).getVersion());
-        assertEquals("CartCreatedEvent", events.get(0).getType());
+        assertEquals(eventType, events.get(0).getType());
     }
 
     @Test
@@ -68,6 +69,14 @@ public class EventStoreTest {
     public void saveEventInvalidAggregateId() {
 
         eventStore.save(new CartCreated("test"), "foobar-shit-2232322");
+    }
+
+    @Test
+    public void testAggregateExists() {
+        final String id = eventStore.save(new CartCreated("footest"));
+
+        assertTrue(eventStore.aggregateExists(id));
+        assertTrue(!eventStore.aggregateExists("foobar-shit-123131"));
     }
 
     private boolean eventsOrderedByVersion(List<Event> events) {

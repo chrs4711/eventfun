@@ -37,4 +37,12 @@ public interface EventStore {
      */
     List<Event> retrieveForAggregate(String aggregateId);
 
+    /**
+     * Checks if an aggregate exists for the given aggregate ID
+     * 
+     * @param aggregateId
+     * @return true if the aggregate exists.
+     */
+    boolean aggregateExists(String aggregateId);
+
 }

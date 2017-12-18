@@ -80,4 +80,10 @@ public class SpringDataJPAEventStore implements EventStore {
         return agg;
     }
 
+    @Override
+    public boolean aggregateExists(String aggregateId) {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
 }
