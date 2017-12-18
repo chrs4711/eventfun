@@ -8,7 +8,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import de.chris.fun.eventfun.domainevents.CartCreatedEvent;
+import de.chris.fun.eventfun.domainevents.CartCreated;
 import de.chris.fun.eventfun.store.DomainEvent;
 import de.chris.fun.eventfun.store.Event;
 
@@ -26,7 +26,7 @@ public class EventSerializeTest {
     @Test
     public void test() {
 
-        final CartCreatedEvent e = new CartCreatedEvent("nobody");
+        final CartCreated e = new CartCreated("nobody");
         final String actual = s.serialize(e);
         assertEquals(CART_CREATED_JSON, actual);
 
@@ -44,7 +44,7 @@ public class EventSerializeTest {
         e.setType("CartCreatedEvent");
         e.setData(CART_CREATED_JSON);
 
-        final DomainEvent actual = s.deserialize(e, Arrays.asList(CartCreatedEvent.class));
+        final DomainEvent actual = s.deserialize(e, Arrays.asList(CartCreated.class));
         assertEquals("CartCreatedEvent", actual.getClass().getSimpleName());
     }
 

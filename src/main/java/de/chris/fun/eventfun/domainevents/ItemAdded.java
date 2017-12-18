@@ -7,7 +7,7 @@ import de.chris.fun.eventfun.store.DomainEvent;
  * @author Christian Wander
  *
  */
-public class ItemAddedEvent implements DomainEvent {
+public class ItemAdded implements DomainEvent {
 
     private Item item;
 

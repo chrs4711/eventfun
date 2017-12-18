@@ -6,15 +6,15 @@ import de.chris.fun.eventfun.store.DomainEvent;
  * @author Christian Wander
  *
  */
-public class CartCreatedEvent implements DomainEvent {
+public class CartCreated implements DomainEvent {
 
     private String createdBy;
 
-    public CartCreatedEvent() {
+    public CartCreated() {
         createdBy = "nobody";
     }
 
-    public CartCreatedEvent(String createdBy) {
+    public CartCreated(String createdBy) {
         this.createdBy = createdBy;
     }
 

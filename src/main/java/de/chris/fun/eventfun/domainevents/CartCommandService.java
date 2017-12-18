@@ -20,7 +20,7 @@ public class CartCommandService {
 
     public String createCart(String creator) {
 
-        final String cartId = eventStore.save(new CartCreatedEvent(creator), "");
+        final String cartId = eventStore.save(new CartCreated(creator), "");
         logger.debug("created new cart with id {}", cartId);
 
         return cartId;

@@ -14,8 +14,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import de.chris.fun.eventfun.domainevents.CartCreatedEvent;
-import de.chris.fun.eventfun.domainevents.ItemAddedEvent;
+import de.chris.fun.eventfun.domainevents.CartCreated;
+import de.chris.fun.eventfun.domainevents.ItemAdded;
 import de.chris.fun.eventfun.dtos.Item;
 import de.chris.fun.eventfun.store.memory.MemoryEventStore;
 
@@ -36,7 +36,7 @@ public class EventStoreTest {
     @Test
     public void saveEventWithoutAggregate() {
 
-        final CartCreatedEvent cce = new CartCreatedEvent();
+        final CartCreated cce = new CartCreated();
 
         final String aggregateId = eventStore.save(cce);
         assertNotNull(aggregateId);
@@ -51,7 +51,7 @@ public class EventStoreTest {
     @Test
     public void retrieveOrderedEvents() {
 
-        final DomainEvent e = new CartCreatedEvent("test");
+        final DomainEvent e = new CartCreated("test");
         final String aggId = eventStore.save(e);
 
         for (int i = 1; i <= 12; i++)
@@ -67,7 +67,7 @@ public class EventStoreTest {
     @Test(expected = NoSuchAggregateException.class)
     public void saveEventInvalidAggregateId() {
 
-        eventStore.save(new CartCreatedEvent("test"), "foobar-shit-2232322");
+        eventStore.save(new CartCreated("test"), "foobar-shit-2232322");
     }
 
     private boolean eventsOrderedByVersion(List<Event> events) {
@@ -86,7 +86,7 @@ public class EventStoreTest {
         return true;
     }
 
-    private ItemAddedEvent itemAddedEvent() {
+    private ItemAdded itemAddedEvent() {
 
         final ThreadLocalRandom random = ThreadLocalRandom.current();
 
@@ -95,7 +95,7 @@ public class EventStoreTest {
 
         final String sku = Integer.toString(random.nextInt(11111, 99999));
 
-        final ItemAddedEvent e = new ItemAddedEvent();
+        final ItemAdded e = new ItemAdded();
         e.setItem(new Item(sku, price, "EUR"));
 
         return e;
