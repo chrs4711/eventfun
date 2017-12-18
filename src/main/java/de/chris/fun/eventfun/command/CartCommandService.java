@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import de.chris.fun.eventfun.domainevents.CartCreated;
 import de.chris.fun.eventfun.domainevents.ItemAdded;
+import de.chris.fun.eventfun.domainevents.ItemRemoved;
 import de.chris.fun.eventfun.dtos.Item;
 import de.chris.fun.eventfun.store.EventStore;
 
@@ -25,7 +26,7 @@ public class CartCommandService {
 
     public String createCart(String createdBy) {
 
-        final String cartId = eventStore.save(new CartCreated(createdBy), "");
+        final String cartId = eventStore.save(new CartCreated(createdBy));
         logger.debug("created new cart with id {}", cartId);
 
         return cartId;
@@ -42,4 +43,14 @@ public class CartCommandService {
         return eventStore.save(e, cartId);
     }
 
+    public String removeItemFromCart(String cartId, String sku) {
+
+        if (!eventStore.aggregateExists(cartId))
+            throw new CommandException(String.format("cart %s does not exist.", cartId));
+
+        final ItemRemoved e = new ItemRemoved();
+        e.setSku(sku);
+
+        return eventStore.save(e, cartId);
+    }
 }

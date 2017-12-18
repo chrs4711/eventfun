@@ -41,11 +41,11 @@ public class EventSerializeTest {
         e.setId("foo");
         e.setAggregateId("fooAggBar");
         e.setVersion(1);
-        e.setType("CartCreatedEvent");
+        e.setType("CartCreated");
         e.setData(CART_CREATED_JSON);
 
         final DomainEvent actual = s.deserialize(e, Arrays.asList(CartCreated.class));
-        assertEquals("CartCreatedEvent", actual.getClass().getSimpleName());
+        assertEquals("CartCreated", actual.getClass().getSimpleName());
     }
 
 }
