@@ -2,77 +2,63 @@
 
 Trying to implement a shopping cart with event sourcing techniques.
 
-## Todo next
-
-* Implement DAO with jdbctemplate or sth. We don't seem to profit much from
-  hibernate as the storing of the event information will require multiple
-  interactions with the DB (transaction).
-
-## Links
-
-* [Some slides from InnoQ](https://de.slideshare.net/mploed/event-sourcing-einfuhrung-und-best-practices)
-* [Microsoft Azure article](https://docs.microsoft.com/en-us/azure/architecture/patterns/event-sourcing)
-* [Thoughts on event stores](https://cqrs.wordpress.com/documents/building-event-storage/)
-
-## Needed functionality
-
-### Creating a cart
-
-* Firing the CartCreatedEvent with necessary data (e.g. by whom)
-* passing the event to the event processor
-* storing the event
-
-### Adding item to cart
-
-* Firing ItemAddedEvent
-* pass event to the event processor
-* Store the event (error handling (don't use the event store for validation))?
-
 ## Components
 
-* Some controller
-* Event processor / handler
-* Event Store (saving and fetching events) what about the domain objects?
+### Done
 
- 
+* Event store (memory based done, jpa in progress)
 
-## Modeling Cart with Domain events
+### TODO
 
-* CartCreatedEvent
-* CartItemAddedEvent
-* CartItemRemovedEvent
-* CartPayedEvent
+* Controller
+* CommandService (takes commands, performs business logic and then fires events?!)
+* QueryService (creates domain objects by replaying the event log)
+* Materializing
+
+
+### Controller
+  
+* `GET /cart/{cartId}`
+* `POST /cart`
+* `POST /cart/{cartId}/{item}`
+* `DELETE /cart/{cartId}/{sku}`
+
+### CommandService 
+
+* createNewCart()
+* addToCart(cart, item)
+* removeFromCart(cart, item)
+* payCart(cart, payment)
+   
+### QueryService 
+
+* getCart(cartId)
+
+### Materializing
+
+Just saving the domain object as json somewhere?!
+
+## Events
+
+* CartCreated
+* CartItemAdded
+* CartItemRemoved
+* PaymentAdded
 
 ## Database model
 
 The domain events will be stored in one table with the following attributes:
 
 * id
-* date
+* timestamp
+* version
 * payload
 
 The event itself will be stored in serialized form in the payload field.
 This decouples the database structure with the events themselves.
 
+## Links
 
-## Other classes
-
-* CartController
-  * GET /cart/{cartId}
-  * POST /cart
-  * POST /cart/{cartId}/{item}
-
-* CartQueryService
-  * findById(cartId)
-
-* CartQueryDao
-
-* CartCommandService
-  * createNewCart()
-  * addToCart(cart, item)
-  * removeFromCart(cart, item)
-  * payCart(cart, payment)
-
-* CartCommandDao
-
-
+* [Some slides from InnoQ](https://de.slideshare.net/mploed/event-sourcing-einfuhrung-und-best-practices)
+* [Microsoft Azure article](https://docs.microsoft.com/en-us/azure/architecture/patterns/event-sourcing)
+* [Thoughts on event stores](https://cqrs.wordpress.com/documents/building-event-storage/)
