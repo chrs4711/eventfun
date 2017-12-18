@@ -39,7 +39,7 @@ public class MemoryEventStore implements EventStore {
         a.setAggregateId(aggregateId);
         a.setVersion(0);
 
-        System.out.println("new aggregate: " + a);
+        logger.debug("created new aggregate with id {}", a);
         aggMap.put(aggregateId, a);
 
         save(event, aggregateId);
