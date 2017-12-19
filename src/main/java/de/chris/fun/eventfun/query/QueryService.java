@@ -22,13 +22,11 @@ public class QueryService {
         if (!eventstore.aggregateExists(id))
             return null;
 
-        return null;
-
+        return replay(eventstore.get(id));
     }
 
     private Cart replay(List<DomainEvent> events) {
-
-        return null;
+        return new Cart(); // TODO: implement it
     }
 
 }
