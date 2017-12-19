@@ -86,4 +86,10 @@ public class SpringDataJPAEventStore implements EventStore {
         return false;
     }
 
+    @Override
+    public List<DomainEvent> get(String aggregateId) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
 }

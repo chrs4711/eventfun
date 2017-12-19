@@ -38,6 +38,14 @@ public interface EventStore {
     List<Event> retrieveForAggregate(String aggregateId);
 
     /**
+     * Retrieves all domain events belonging to a specific aggregate.
+     * 
+     * @param aggregateId
+     * @return
+     */
+    List<DomainEvent> get(String aggregateId);
+
+    /**
      * Checks if an aggregate exists for the given aggregate ID
      * 
      * @param aggregateId

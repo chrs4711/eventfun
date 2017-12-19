@@ -92,4 +92,10 @@ public class MemoryEventStore implements EventStore {
         return aggMap.containsKey(aggregateId);
     }
 
+    @Override
+    public List<DomainEvent> get(String aggregateId) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
 }
