@@ -2,11 +2,20 @@ package de.chris.fun.eventfun.store;
 
 import java.util.List;
 
+import de.chris.fun.eventfun.store.serialize.DomainEventSerializ0r;
+
 /**
  * @author Christian Wander
  *
  */
 public interface EventStore {
+
+    /**
+     * Configure how to de-/serialize domain events
+     * 
+     * @param s
+     */
+    void setSerializ0r(DomainEventSerializ0r s);
 
     /**
      * Save a DomainEvent to the event store. A new aggregate will be created for
@@ -35,7 +44,7 @@ public interface EventStore {
      * @param aggregateId
      * @return
      */
-    List<Event> retrieveForAggregate(String aggregateId);
+    List<Event> getRawEvents(String aggregateId);
 
     /**
      * Retrieves all domain events belonging to a specific aggregate.

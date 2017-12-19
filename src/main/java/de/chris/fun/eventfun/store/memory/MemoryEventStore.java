@@ -27,9 +27,14 @@ public class MemoryEventStore implements EventStore {
     private final Map<String, Event> eventMap = new HashMap<>();
     private final Map<String, Aggregate> aggMap = new HashMap<>();
 
-    private final DomainEventSerializ0r s = new JsonSerializ0r();
+    private DomainEventSerializ0r serializ0r = new JsonSerializ0r();
 
     private static final Logger logger = LoggerFactory.getLogger(MemoryEventStore.class);
+
+    @Override
+    public void setSerializ0r(DomainEventSerializ0r s) {
+        this.serializ0r = s;
+    }
 
     @Override
     public String save(DomainEvent event) {
@@ -62,7 +67,7 @@ public class MemoryEventStore implements EventStore {
         e.setId(UUID.randomUUID().toString());
         e.setType(event.getClass().getSimpleName());
         e.setVersion(newVersion);
-        e.setData(s.serialize(event));
+        e.setData(serializ0r.serialize(event));
 
         agg.setVersion(newVersion);
         logger.debug("updating aggregate: {}", agg);
@@ -74,14 +79,14 @@ public class MemoryEventStore implements EventStore {
     }
 
     @Override
-    public List<Event> retrieveForAggregate(String aggregateId) {
+    public List<Event> getRawEvents(String aggregateId) {
 
         final List<Event> events = eventMap.values().stream()
                 .filter(e -> e.getAggregateId().equals(aggregateId))
                 .collect(Collectors.toList());
 
         Collections.sort(events, (e1, e2) -> {
-            return e1.getVersion() >= e2.getVersion() ? 1 : -1;
+            return e1.getVersion() >= e2.getVersion() ? 1 : -1; // ASC
         });
 
         return events;
@@ -94,8 +99,13 @@ public class MemoryEventStore implements EventStore {
 
     @Override
     public List<DomainEvent> get(String aggregateId) {
-        // TODO Auto-generated method stub
-        return null;
+
+        if (!aggMap.containsKey(aggregateId))
+            throw new NoSuchAggregateException(String.format("aggregate with id %s not found", aggregateId));
+
+        return getRawEvents(aggregateId).stream()
+                .map(e -> serializ0r.deserialize(e))
+                .collect(Collectors.toList());
     }
 
 }

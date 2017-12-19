@@ -6,6 +6,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -18,6 +19,7 @@ import de.chris.fun.eventfun.domainevents.CartCreated;
 import de.chris.fun.eventfun.domainevents.ItemAdded;
 import de.chris.fun.eventfun.dtos.Item;
 import de.chris.fun.eventfun.store.memory.MemoryEventStore;
+import de.chris.fun.eventfun.store.serialize.JsonSerializ0r;
 
 /**
  * @author Christian Wander
@@ -30,7 +32,10 @@ public class EventStoreTest {
 
     @Before
     public void setup() {
-        System.out.println("\n---------------------------------");
+
+        final JsonSerializ0r s = new JsonSerializ0r();
+        s.setKnownDomainEventTypes(Arrays.asList(CartCreated.class, ItemAdded.class));
+        eventStore.setSerializ0r(s);
     }
 
     @Test
@@ -43,7 +48,7 @@ public class EventStoreTest {
         assertNotNull(aggregateId);
         System.out.println(aggregateId);
 
-        final List<Event> events = eventStore.retrieveForAggregate(aggregateId);
+        final List<Event> events = eventStore.getRawEvents(aggregateId);
         assertNotNull(events);
         assertEquals(1, events.get(0).getVersion());
         assertEquals(eventType, events.get(0).getType());
@@ -58,7 +63,7 @@ public class EventStoreTest {
         for (int i = 1; i <= 12; i++)
             eventStore.save(itemAddedEvent(), aggId);
 
-        final List<Event> events = eventStore.retrieveForAggregate(aggId);
+        final List<Event> events = eventStore.getRawEvents(aggId);
         events.forEach(System.out::println);
 
         assertEquals(13, events.size());
@@ -77,6 +82,17 @@ public class EventStoreTest {
 
         assertTrue(eventStore.aggregateExists(id));
         assertTrue(!eventStore.aggregateExists("foobar-shit-123131"));
+    }
+
+    @Test
+    public void testRetrieveDomainEvents() {
+
+        final String aggId = eventStore.save(new CartCreated("test"));
+
+        final List<DomainEvent> domainEvents = eventStore.get(aggId);
+        assertNotNull(domainEvents);
+        assertEquals("CartCreated", domainEvents.get(0).getClass().getSimpleName());
+
     }
 
     private boolean eventsOrderedByVersion(List<Event> events) {

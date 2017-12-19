@@ -17,6 +17,18 @@ public class JsonSerializ0r implements DomainEventSerializ0r {
 
     private final ObjectMapper objectMapper = new ObjectMapper();
 
+    private List<Class<? extends DomainEvent>> knownDomainEventTypes;
+
+    @Override
+    public List<Class<? extends DomainEvent>> getKnownDomainEventTypes() {
+        return knownDomainEventTypes;
+    }
+
+    @Override
+    public void setKnownDomainEventTypes(List<Class<? extends DomainEvent>> knownDomainEventTypes) {
+        this.knownDomainEventTypes = knownDomainEventTypes;
+    }
+
     @Override
     public String serialize(DomainEvent event) {
 
@@ -28,9 +40,9 @@ public class JsonSerializ0r implements DomainEventSerializ0r {
     }
 
     @Override
-    public DomainEvent deserialize(Event event, List<Class<? extends DomainEvent>> domainEventClasses) {
+    public DomainEvent deserialize(Event event) {
 
-        for (final Class<? extends DomainEvent> c : domainEventClasses) {
+        for (final Class<? extends DomainEvent> c : knownDomainEventTypes) {
             if (c.getSimpleName().equals(event.getType())) {
                 try {
                     return objectMapper.readValue(event.getData(), c);
