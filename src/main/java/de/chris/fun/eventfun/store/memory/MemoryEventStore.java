@@ -33,7 +33,7 @@ public class MemoryEventStore implements EventStore {
 
     @Override
     public void setSerializ0r(DomainEventSerializ0r s) {
-        this.serializ0r = s;
+        serializ0r = s;
     }
 
     @Override
@@ -70,10 +70,10 @@ public class MemoryEventStore implements EventStore {
         e.setData(serializ0r.serialize(event));
 
         agg.setVersion(newVersion);
+        eventMap.put(e.getId(), e);
+
         logger.debug("updating aggregate: {}", agg);
         logger.debug("saving event: {}", e);
-
-        eventMap.put(e.getId(), e);
 
         return aggregateId;
     }

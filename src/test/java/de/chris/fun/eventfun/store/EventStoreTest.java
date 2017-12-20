@@ -17,8 +17,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import de.chris.fun.eventfun.domain.Cart;
 import de.chris.fun.eventfun.domain.Item;
-import de.chris.fun.eventfun.domainevents.CartCreated;
-import de.chris.fun.eventfun.domainevents.ItemAdded;
+import de.chris.fun.eventfun.domain.events.CartCreated;
+import de.chris.fun.eventfun.domain.events.ItemAdded;
 import de.chris.fun.eventfun.store.memory.MemoryEventStore;
 import de.chris.fun.eventfun.store.serialize.JsonSerializ0r;
 

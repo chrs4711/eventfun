@@ -1,4 +1,4 @@
-package de.chris.fun.eventfun.domainevents;
+package de.chris.fun.eventfun.domain.events;
 
 import de.chris.fun.eventfun.domain.Cart;
 import de.chris.fun.eventfun.store.DomainEvent;

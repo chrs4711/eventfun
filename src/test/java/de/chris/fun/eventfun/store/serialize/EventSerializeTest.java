@@ -9,7 +9,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import de.chris.fun.eventfun.domainevents.CartCreated;
+import de.chris.fun.eventfun.domain.events.CartCreated;
 import de.chris.fun.eventfun.store.DomainEvent;
 import de.chris.fun.eventfun.store.Event;
 

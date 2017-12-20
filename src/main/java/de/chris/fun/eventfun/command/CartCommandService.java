@@ -5,9 +5,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import de.chris.fun.eventfun.domain.Item;
-import de.chris.fun.eventfun.domainevents.CartCreated;
-import de.chris.fun.eventfun.domainevents.ItemAdded;
-import de.chris.fun.eventfun.domainevents.ItemRemoved;
+import de.chris.fun.eventfun.domain.events.CartCreated;
+import de.chris.fun.eventfun.domain.events.ItemAdded;
+import de.chris.fun.eventfun.domain.events.ItemRemoved;
 import de.chris.fun.eventfun.store.EventStore;
 
 /**

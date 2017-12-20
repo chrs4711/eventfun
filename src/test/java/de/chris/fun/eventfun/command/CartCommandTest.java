@@ -15,8 +15,8 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import de.chris.fun.eventfun.domain.Item;
-import de.chris.fun.eventfun.domainevents.ItemAdded;
-import de.chris.fun.eventfun.domainevents.ItemRemoved;
+import de.chris.fun.eventfun.domain.events.ItemAdded;
+import de.chris.fun.eventfun.domain.events.ItemRemoved;
 import de.chris.fun.eventfun.store.EventStore;
 
 @RunWith(SpringRunner.class)
