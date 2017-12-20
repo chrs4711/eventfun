@@ -4,7 +4,7 @@ import de.chris.fun.eventfun.domain.Cart;
 import de.chris.fun.eventfun.domain.Item;
 import de.chris.fun.eventfun.store.DomainEvent;
 
-public class ItemRemoved implements DomainEvent {
+public class ItemRemoved implements DomainEvent<Cart> {
 
     private String sku;
 
@@ -22,9 +22,9 @@ public class ItemRemoved implements DomainEvent {
     }
 
     @Override
-    public <T> T apply(T domainObject) {
+    public Cart apply(Cart domainObject) {
 
-        final Cart cart = (Cart) domainObject;
+        final Cart cart = domainObject;
 
         final Item item = cart.getItemForSku(sku);
 
@@ -32,7 +32,7 @@ public class ItemRemoved implements DomainEvent {
             cart.getItems().remove(item);
         }
 
-        return domainObject;
+        return cart;
     }
 
 }

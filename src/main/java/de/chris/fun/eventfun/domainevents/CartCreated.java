@@ -7,7 +7,7 @@ import de.chris.fun.eventfun.store.DomainEvent;
  * @author Christian Wander
  *
  */
-public class CartCreated implements DomainEvent {
+public class CartCreated implements DomainEvent<Cart> {
 
     private String createdBy;
 
@@ -33,12 +33,8 @@ public class CartCreated implements DomainEvent {
     }
 
     @Override
-    public <T> T apply(T domainObject) {
-
-        final Cart cart = (Cart) domainObject;
-
-        cart.setCreatedBy(createdBy);
-
+    public Cart apply(Cart domainObject) {
+        domainObject.setCreatedBy(createdBy);
         return domainObject;
     }
 

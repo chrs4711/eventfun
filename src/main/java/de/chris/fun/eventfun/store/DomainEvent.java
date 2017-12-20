@@ -8,8 +8,8 @@ package de.chris.fun.eventfun.store;
  * @author Christian Wander
  *
  */
-public interface DomainEvent {
+public interface DomainEvent<T> {
 
-    public <T> T apply(T domainObject);
+    public T apply(T domainObject);
 
 }

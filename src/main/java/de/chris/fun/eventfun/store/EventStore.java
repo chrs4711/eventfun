@@ -25,7 +25,7 @@ public interface EventStore {
      *            the DomainEvent
      * @return the aggregate id
      */
-    String save(DomainEvent event);
+    String save(DomainEvent<?> event);
 
     /**
      * Save a DomainEvent for an aggregate to the event store.
@@ -36,7 +36,7 @@ public interface EventStore {
      *            Id of the aggregate the event belongs to.
      * @return the Id of the aggregate.
      */
-    String save(DomainEvent event, String aggregateId);
+    String save(DomainEvent<?> event, String aggregateId);
 
     /**
      * Retrieves all events belonging to a specific aggregate.
@@ -52,7 +52,7 @@ public interface EventStore {
      * @param aggregateId
      * @return
      */
-    List<DomainEvent> get(String aggregateId);
+    List<DomainEvent<?>> get(String aggregateId);
 
     /**
      * Checks if an aggregate exists for the given aggregate ID
