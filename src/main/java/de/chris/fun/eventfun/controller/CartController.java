@@ -9,39 +9,39 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import de.chris.fun.eventfun.command.CartCommandService;
 import de.chris.fun.eventfun.dtos.Item;
-import de.chris.fun.eventfun.service.CartService;
 
 @Controller
 @RequestMapping("/cart")
 public class CartController {
 
     @Autowired
-    private CartService cartService;
+    CartCommandService commandService;
 
     @PostMapping("")
     public ResponseEntity<?> createNewCart() {
 
-        return ResponseEntity.ok(cartService.createCart());
+        return ResponseEntity.ok(commandService.createCart("implement me"));
     }
 
     @GetMapping("{cartId}")
     public ResponseEntity<?> getCartById(@PathVariable("cartId") String cartId) {
 
-        return ResponseEntity.ok(cartService.getCart(cartId));
+        return ResponseEntity.notFound().build();
     }
 
     @PostMapping("{cartId}/items")
     public ResponseEntity<?> addItemToCart(String cartId, Item item) {
 
-        return ResponseEntity.ok(cartService.addItemToCart(cartId, item));
+        return ResponseEntity.ok(commandService.addItemToCart(cartId, item));
     }
 
     @DeleteMapping("{cartId}/items/{sku}")
-    public ResponseEntity<?> deleteItemFromCart(@PathVariable("cartId") String cartId,
+    public ResponseEntity<?> removeItemFromCart(@PathVariable("cartId") String cartId,
             @PathVariable("sku") String sku) {
 
-        return ResponseEntity.ok(cartService.deleteItemFromCart(sku, cartId));
+        return ResponseEntity.ok(commandService.removeItemFromCart(sku, cartId));
     }
 
 }
