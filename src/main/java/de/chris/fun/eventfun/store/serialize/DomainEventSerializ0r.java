@@ -11,8 +11,23 @@ import de.chris.fun.eventfun.store.Event;
  */
 public interface DomainEventSerializ0r {
 
+    /**
+     * Inform the serializer of the existing domain events. TODO: This is awkward.
+     * Maybe use spring to scan for valid types
+     * 
+     * @param knownDomainEventTypes
+     */
+    public void setKnownDomainEventTypes(List<Class<? extends DomainEvent>> knownDomainEventTypes);
+
+    /**
+     * Returns the types of domain events the serializer knows about.
+     * 
+     * @return
+     */
+    public List<Class<? extends DomainEvent>> getKnownDomainEventTypes();
+
     public String serialize(DomainEvent event);
 
-    DomainEvent deserialize(Event event, List<Class<? extends DomainEvent>> domainEventClasses);
+    public DomainEvent deserialize(Event event);
 
 }

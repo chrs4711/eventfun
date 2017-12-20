@@ -34,6 +34,11 @@ public class SpringDataJPAEventStore implements EventStore {
     private static final Logger logger = LoggerFactory.getLogger(SpringDataJPAEventStore.class);
 
     @Override
+    public void setSerializ0r(DomainEventSerializ0r s) {
+        this.serializ0r = s;
+    }
+
+    @Override
     public String save(DomainEvent event) {
         final Aggregate agg = makeNewAggregate();
         aggRepo.save(agg);
@@ -69,7 +74,7 @@ public class SpringDataJPAEventStore implements EventStore {
     }
 
     @Override
-    public List<Event> retrieveForAggregate(String aggregateId) {
+    public List<Event> getRawEvents(String aggregateId) {
         return eventRepo.findByAggregateIdOrderByVersion(aggregateId);
     }
 
@@ -84,6 +89,12 @@ public class SpringDataJPAEventStore implements EventStore {
     public boolean aggregateExists(String aggregateId) {
         // TODO Auto-generated method stub
         return false;
+    }
+
+    @Override
+    public List<DomainEvent> get(String aggregateId) {
+        // TODO Auto-generated method stub
+        return null;
     }
 
 }
