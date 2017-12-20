@@ -6,6 +6,7 @@ import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.when;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -36,7 +37,6 @@ public class CartCommandTest {
         MockitoAnnotations.initMocks(this);
 
         when(eventStore.aggregateExists(NON_EXISTING_ID)).thenReturn(false);
-
         when(eventStore.aggregateExists(EXISTING_AGG_ID)).thenReturn(true);
         when(eventStore.save(any(ItemRemoved.class), eq(EXISTING_AGG_ID))).thenReturn(EXISTING_AGG_ID);
         when(eventStore.save(any(ItemAdded.class), eq(EXISTING_AGG_ID))).thenReturn(EXISTING_AGG_ID);
@@ -50,14 +50,6 @@ public class CartCommandTest {
         final String cartId = service.createCart("nobody");
 
         assertEquals("some-id", cartId);
-    }
-
-    @Test(expected = CommandException.class)
-    public void addItemToNonexistingCart() {
-
-        when(eventStore.aggregateExists("foo")).thenReturn(false);
-
-        service.addItemToCart("foo", new Item("1234", "23.23", "EUR"));
     }
 
     @Test
@@ -74,14 +66,19 @@ public class CartCommandTest {
         assertEquals(EXISTING_AGG_ID, actual);
     }
 
-    // @Test
-    // public void removeNonexistingItemFromExistingCart() {
-    // fail("implement me!");
-    // }
+    @Test(expected = CommandException.class)
+    public void addItemToNonexistingCart() {
+        service.addItemToCart(NON_EXISTING_ID, new Item("1234", "23.23", "EUR"));
+    }
+
+    @Test(expected = CommandException.class)
+    @Ignore("not implemented yet.")
+    public void removeNonexistingItemFromExistingCart() {
+        service.removeItemFromCart(EXISTING_AGG_ID, "12345");
+    }
 
     @Test(expected = CommandException.class)
     public void removeItemFromNonexistingCart() {
-
         service.removeItemFromCart(NON_EXISTING_ID, "54321");
     }
 

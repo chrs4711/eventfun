@@ -48,6 +48,13 @@ public class CartCommandService {
         if (!eventStore.aggregateExists(cartId))
             throw new CommandException(String.format("cart %s does not exist.", cartId));
 
+        // Can (should) we find out if the item to be deleted exists in the cart?
+
+        // option1: ask event store (gets very slow very fast ..)
+        // option2: ask the materialized view of this cart (eventually consistent)
+        // option3: let the reader of the events worry about it. That would mean that no
+        // error is raised and everything looks fine.
+
         final ItemRemoved e = new ItemRemoved();
         e.setSku(sku);
 
