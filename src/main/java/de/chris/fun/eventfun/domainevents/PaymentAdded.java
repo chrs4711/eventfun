@@ -37,4 +37,11 @@ public class PaymentAdded implements DomainEvent {
         return "PaymentAdded [amount=" + amount + ", currency=" + currency + ", method=" + method + "]";
     }
 
+    @Override
+    public <T> T apply(T domainObject) {
+        // TODO Auto-generated method stub
+        System.out.println("Payment not implemented yet in " + this.getClass().getName());
+        return domainObject;
+    }
+
 }

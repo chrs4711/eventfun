@@ -10,4 +10,6 @@ package de.chris.fun.eventfun.store;
  */
 public interface DomainEvent {
 
+    public <T> T apply(T domainObject);
+
 }

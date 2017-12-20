@@ -6,9 +6,6 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import de.chris.fun.eventfun.domainevents.CartCreated;
-import de.chris.fun.eventfun.domainevents.ItemAdded;
-import de.chris.fun.eventfun.domainevents.ItemRemoved;
 import de.chris.fun.eventfun.store.DomainEvent;
 
 /**
@@ -57,39 +54,11 @@ public class Cart {
 
         Cart cart = new Cart();
 
-        for (final DomainEvent e : events)
-            cart = applyEvent(cart, e);
-
-        return cart;
-    }
-
-    private static Cart applyEvent(Cart cart, DomainEvent e) {
-
-        logger.debug("replaying event: " + e);
-
-        if (e instanceof CartCreated) {
-            cart.setCreatedBy(((CartCreated) e).getCreatedBy());
-            return cart;
+        for (final DomainEvent e : events) {
+            logger.debug("Applying event to cart: {}", e);
+            cart = e.apply(cart);
         }
 
-        if (e instanceof ItemAdded) {
-            cart.items.add(((ItemAdded) e).getItem());
-            return cart;
-        }
-
-        if (e instanceof ItemRemoved) {
-            final Item i = cart.getItemForSku(((ItemRemoved) e).getSku());
-
-            if (i == null) {
-                logger.warn("Cannot remove nonexisting item from cart " + e);
-                return cart;
-            }
-
-            cart.items.remove(i);
-            return cart;
-        }
-
-        logger.warn("Invalid event encountered during replay: {}", e);
         return cart;
     }
 

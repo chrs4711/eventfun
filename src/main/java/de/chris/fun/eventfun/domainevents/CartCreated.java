@@ -1,5 +1,6 @@
 package de.chris.fun.eventfun.domainevents;
 
+import de.chris.fun.eventfun.domain.Cart;
 import de.chris.fun.eventfun.store.DomainEvent;
 
 /**
@@ -29,6 +30,16 @@ public class CartCreated implements DomainEvent {
     @Override
     public String toString() {
         return "CartCreatedEvent [createdBy=" + createdBy + "]";
+    }
+
+    @Override
+    public <T> T apply(T domainObject) {
+
+        final Cart cart = (Cart) domainObject;
+
+        cart.setCreatedBy(createdBy);
+
+        return domainObject;
     }
 
 }
