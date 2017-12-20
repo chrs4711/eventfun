@@ -65,5 +65,5 @@ This decouples the database structure with the events themselves.
 * [Thoughts on event stores](https://cqrs.wordpress.com/documents/building-event-storage/)
 * [Domain Command Patterns - Validation](https://jimmybogard.com/domain-command-patterns-validation/)
 * [Domain Command Patterns - Handlers](https://jimmybogard.com/domain-command-patterns-handlers/)
-
+* [Is a CQRS Command = to a GoF Command?](http://danielwhittaker.me/2015/05/25/is-a-cqrs-command-gof-command/)
 
