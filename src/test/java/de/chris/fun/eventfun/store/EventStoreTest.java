@@ -58,7 +58,7 @@ public class EventStoreTest {
     @Test
     public void retrieveOrderedEvents() {
 
-        final DomainEvent<Cart> e = new CartCreated("test");
+        final DomainEvent e = new CartCreated("test");
         final String aggId = eventStore.save(e);
 
         for (int i = 1; i <= 12; i++)
@@ -94,7 +94,7 @@ public class EventStoreTest {
 
         final String aggId = eventStore.save(new CartCreated("test"));
 
-        final List<DomainEvent<Cart>> domainEvents = eventStore.get(aggId);
+        final List<DomainEvent> domainEvents = eventStore.get(aggId);
         assertNotNull(domainEvents);
         assertEquals("CartCreated", domainEvents.get(0).getClass().getSimpleName());
 

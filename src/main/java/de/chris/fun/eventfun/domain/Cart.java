@@ -50,11 +50,11 @@ public class Cart {
         return null;
     }
 
-    public static Cart replay(List<DomainEvent<Cart>> events) {
+    public static Cart replay(List<DomainEvent> events) {
 
         Cart cart = new Cart();
 
-        for (final DomainEvent<Cart> e : events) {
+        for (final DomainEvent e : events) {
             logger.debug("Applying event to cart: {}", e);
             cart = e.apply(cart);
         }

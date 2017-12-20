@@ -1,9 +1,8 @@
 package de.chris.fun.eventfun.domainevents;
 
-import de.chris.fun.eventfun.domain.Cart;
 import de.chris.fun.eventfun.store.DomainEvent;
 
-public class PaymentAdded implements DomainEvent<Cart> {
+public class PaymentAdded implements DomainEvent {
 
     private String amount;
     private String currency;
@@ -39,7 +38,7 @@ public class PaymentAdded implements DomainEvent<Cart> {
     }
 
     @Override
-    public Cart apply(Cart domainObject) {
+    public <T> T apply(T domainObject) {
         // TODO Auto-generated method stub
         System.out.println("Payment not implemented yet in " + this.getClass().getName());
         return domainObject;
