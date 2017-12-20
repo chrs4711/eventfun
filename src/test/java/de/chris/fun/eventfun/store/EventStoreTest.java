@@ -15,9 +15,10 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import de.chris.fun.eventfun.domain.Cart;
+import de.chris.fun.eventfun.domain.Item;
 import de.chris.fun.eventfun.domainevents.CartCreated;
 import de.chris.fun.eventfun.domainevents.ItemAdded;
-import de.chris.fun.eventfun.dtos.Item;
 import de.chris.fun.eventfun.store.memory.MemoryEventStore;
 import de.chris.fun.eventfun.store.serialize.JsonSerializ0r;
 
@@ -68,6 +69,10 @@ public class EventStoreTest {
 
         assertEquals(13, events.size());
         assertTrue("Events not ordered by version", eventsOrderedByVersion(events));
+
+        final Cart c = Cart.replay(eventStore.get(aggId));
+        System.out.println(c);
+
     }
 
     @Test(expected = NoSuchAggregateException.class)
@@ -121,7 +126,7 @@ public class EventStoreTest {
         final String sku = Integer.toString(random.nextInt(11111, 99999));
 
         final ItemAdded e = new ItemAdded();
-        e.setItem(new Item(sku, price, "EUR"));
+        e.setItem(new Item(sku, price, "EUR", "dummy text"));
 
         return e;
     }

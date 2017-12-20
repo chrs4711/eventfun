@@ -4,10 +4,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import de.chris.fun.eventfun.domain.Item;
 import de.chris.fun.eventfun.domainevents.CartCreated;
 import de.chris.fun.eventfun.domainevents.ItemAdded;
 import de.chris.fun.eventfun.domainevents.ItemRemoved;
-import de.chris.fun.eventfun.dtos.Item;
 import de.chris.fun.eventfun.store.EventStore;
 
 /**

@@ -1,6 +1,6 @@
 package de.chris.fun.eventfun.domainevents;
 
-import de.chris.fun.eventfun.dtos.Item;
+import de.chris.fun.eventfun.domain.Item;
 import de.chris.fun.eventfun.store.DomainEvent;
 
 /**

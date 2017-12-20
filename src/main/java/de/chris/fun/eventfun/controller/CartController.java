@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import de.chris.fun.eventfun.command.CartCommandService;
-import de.chris.fun.eventfun.dtos.Item;
+import de.chris.fun.eventfun.domain.Item;
 
 @Controller
 @RequestMapping("/cart")
