@@ -21,7 +21,7 @@ import de.chris.fun.eventfun.store.Event;
 @RunWith(SpringRunner.class)
 public class EventSerializeTest {
 
-    private final DomainEventSerializ0r s = new JsonSerializ0r();
+    private final DomainEventSerializ0r<Cart> s = new JsonSerializ0r<>();
 
     private static final String CART_CREATED_JSON = "{\"createdBy\":\"nobody\"}";
 

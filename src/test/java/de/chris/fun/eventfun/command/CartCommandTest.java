@@ -28,7 +28,7 @@ public class CartCommandTest {
     private static final String EXISTING_AGG_ID = "existing-id";
 
     @Mock
-    private EventRepository<Cart> eventStore;
+    private EventRepository<Cart> eventRepo;
 
     @InjectMocks
     private CartCommandService service;
@@ -37,16 +37,16 @@ public class CartCommandTest {
     public void prepare() {
         MockitoAnnotations.initMocks(this);
 
-        when(eventStore.aggregateExists(NON_EXISTING_ID)).thenReturn(false);
-        when(eventStore.aggregateExists(EXISTING_AGG_ID)).thenReturn(true);
-        when(eventStore.save(any(ItemRemoved.class), eq(EXISTING_AGG_ID))).thenReturn(EXISTING_AGG_ID);
-        when(eventStore.save(any(ItemAdded.class), eq(EXISTING_AGG_ID))).thenReturn(EXISTING_AGG_ID);
+        when(eventRepo.aggregateExists(NON_EXISTING_ID)).thenReturn(false);
+        when(eventRepo.aggregateExists(EXISTING_AGG_ID)).thenReturn(true);
+        when(eventRepo.save(any(ItemRemoved.class), eq(EXISTING_AGG_ID))).thenReturn(EXISTING_AGG_ID);
+        when(eventRepo.save(any(ItemAdded.class), eq(EXISTING_AGG_ID))).thenReturn(EXISTING_AGG_ID);
     }
 
     @Test
     public void createCart() {
 
-        when(eventStore.save(any())).thenReturn("some-id");
+        when(eventRepo.save(any())).thenReturn("some-id");
 
         final String cartId = service.createCart("nobody");
 
