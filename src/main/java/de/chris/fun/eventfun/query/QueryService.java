@@ -3,7 +3,7 @@ package de.chris.fun.eventfun.query;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import de.chris.fun.eventfun.domain.Cart;
-import de.chris.fun.eventfun.store.EventStore;
+import de.chris.fun.eventfun.store.EventRepository;
 
 /**
  * @author Christian Wander
@@ -12,7 +12,7 @@ import de.chris.fun.eventfun.store.EventStore;
 public class QueryService {
 
     @Autowired
-    private EventStore eventstore;
+    private EventRepository<Cart> eventstore;
 
     public Cart getCart(String id) {
 
