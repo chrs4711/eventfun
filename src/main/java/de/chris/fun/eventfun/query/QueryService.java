@@ -17,7 +17,7 @@ public class QueryService {
     public Cart getCart(String id) {
 
         if (!eventstore.aggregateExists(id))
-            return null;
+            throw new CartNotFoundException(id);
 
         return Cart.replay(eventstore.get(id));
     }

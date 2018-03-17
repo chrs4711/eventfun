@@ -7,10 +7,13 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import de.chris.fun.eventfun.command.CartCommandService;
+import de.chris.fun.eventfun.domain.Cart;
 import de.chris.fun.eventfun.domain.Item;
+import de.chris.fun.eventfun.query.QueryService;
 
 @Controller
 @RequestMapping("/cart")
@@ -19,6 +22,9 @@ public class CartController {
     @Autowired
     CartCommandService commandService;
 
+    @Autowired
+    QueryService queryService;
+
     @PostMapping("")
     public ResponseEntity<?> createNewCart() {
 
@@ -26,13 +32,13 @@ public class CartController {
     }
 
     @GetMapping("{cartId}")
-    public ResponseEntity<?> getCartById(@PathVariable("cartId") String cartId) {
+    public Cart getCartById(@PathVariable("cartId") String cartId) {
 
-        return ResponseEntity.notFound().build();
+        return queryService.getCart(cartId);
     }
 
     @PostMapping("{cartId}/items")
-    public ResponseEntity<?> addItemToCart(String cartId, Item item) {
+    public ResponseEntity<?> addItemToCart(String cartId, @RequestBody Item item) {
 
         return ResponseEntity.ok(commandService.addItemToCart(cartId, item));
     }
