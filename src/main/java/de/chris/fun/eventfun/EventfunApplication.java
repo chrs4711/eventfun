@@ -4,6 +4,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import de.chris.fun.eventfun.domain.Cart;
 import de.chris.fun.eventfun.store.serialize.DomainEventSerializ0r;
 import de.chris.fun.eventfun.store.serialize.JsonSerializ0r;
 
@@ -15,8 +16,8 @@ public class EventfunApplication {
     }
 
     @Bean
-    public DomainEventSerializ0r eventSerializ0r() {
-        return new JsonSerializ0r();
+    public DomainEventSerializ0r<Cart> eventSerializ0r() {
+        return new JsonSerializ0r<>();
     }
 
 }

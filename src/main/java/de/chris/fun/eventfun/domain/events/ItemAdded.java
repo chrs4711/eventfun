@@ -8,7 +8,7 @@ import de.chris.fun.eventfun.store.DomainEvent;
  * @author Christian Wander
  *
  */
-public class ItemAdded implements DomainEvent {
+public class ItemAdded implements DomainEvent<Cart> {
 
     private Item item;
 
@@ -26,13 +26,10 @@ public class ItemAdded implements DomainEvent {
     }
 
     @Override
-    public <T> T apply(T domainObject) {
-
-        final Cart cart = (Cart) domainObject;
+    public Cart apply(Cart cart) {
 
         cart.getItems().add(item);
-
-        return domainObject;
+        return cart;
     }
 
 }
