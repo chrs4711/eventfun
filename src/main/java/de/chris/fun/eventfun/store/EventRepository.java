@@ -57,7 +57,7 @@ public class EventRepository<T> {
         return eventStore.save(data, eventType, aggregateId);
     }
 
-    public T replayFor(Class<? extends T> c, String aggregateId) {
+    public T replayFor(Class<T> c, String aggregateId) {
 
         if (!aggregateExists(aggregateId))
             throw new NoSuchAggregateException(aggregateId);
