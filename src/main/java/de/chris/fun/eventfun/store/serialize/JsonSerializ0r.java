@@ -11,26 +11,27 @@ import de.chris.fun.eventfun.store.Event;
 
 /**
  * @author Christian Wander
+ * @param <T>
  *
  */
-public class JsonSerializ0r implements DomainEventSerializ0r {
+public class JsonSerializ0r<T> implements DomainEventSerializ0r<T> {
 
     private final ObjectMapper objectMapper = new ObjectMapper();
 
-    private List<Class<? extends DomainEvent>> knownDomainEventTypes;
+    private List<Class<? extends DomainEvent<T>>> knownDomainEventTypes;
 
     @Override
-    public List<Class<? extends DomainEvent>> getKnownDomainEventTypes() {
+    public List<Class<? extends DomainEvent<T>>> getKnownDomainEventTypes() {
         return knownDomainEventTypes;
     }
 
     @Override
-    public void setKnownDomainEventTypes(List<Class<? extends DomainEvent>> knownDomainEventTypes) {
+    public void setKnownDomainEventTypes(List<Class<? extends DomainEvent<T>>> knownDomainEventTypes) {
         this.knownDomainEventTypes = knownDomainEventTypes;
     }
 
     @Override
-    public String serialize(DomainEvent event) {
+    public String serialize(DomainEvent<T> event) {
 
         try {
             return objectMapper.writeValueAsString(event);
@@ -40,9 +41,9 @@ public class JsonSerializ0r implements DomainEventSerializ0r {
     }
 
     @Override
-    public DomainEvent deserialize(Event event) {
+    public DomainEvent<T> deserialize(Event event) {
 
-        for (final Class<? extends DomainEvent> c : knownDomainEventTypes) {
+        for (final Class<? extends DomainEvent<T>> c : knownDomainEventTypes) {
             if (c.getSimpleName().equals(event.getType())) {
                 try {
                     return objectMapper.readValue(event.getData(), c);

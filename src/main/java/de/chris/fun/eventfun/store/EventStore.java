@@ -2,57 +2,39 @@ package de.chris.fun.eventfun.store;
 
 import java.util.List;
 
-import de.chris.fun.eventfun.store.serialize.DomainEventSerializ0r;
-
 /**
- * @author Christian Wander
+ * 
+ * Interface for a event store which stores raw events. No domain typing shit
+ * here.
  *
+ * @author Christian Wander
  */
 public interface EventStore {
 
     /**
-     * Configure how to de-/serialize domain events
-     * 
-     * @param s
-     */
-    void setSerializ0r(DomainEventSerializ0r s);
-
-    /**
-     * Save a DomainEvent to the event store. A new aggregate will be created for
-     * the event.
-     * 
-     * @param event
-     *            the DomainEvent
-     * @return the aggregate id
-     */
-    String save(DomainEvent event);
-
-    /**
-     * Save a DomainEvent for an aggregate to the event store.
-     * 
-     * @param event
-     *            The DomainEvent
+     * @param data
+     * @param eventType
      * @param aggregateId
-     *            Id of the aggregate the event belongs to.
-     * @return the Id of the aggregate.
+     * @return The id of the aggregate the event belongs to.
      */
-    String save(DomainEvent event, String aggregateId);
+    String save(String data, String eventType, String aggregateId);
+
+    /**
+     * Saves an event for a previously not existing aggregate.
+     * 
+     * @param data
+     * @param eventType
+     * @return the id of the newly created aggregate
+     */
+    String save(String data, String eventType);
 
     /**
      * Retrieves all events belonging to a specific aggregate.
      * 
      * @param aggregateId
-     * @return
+     * @return A list with all events for the given aggregate
      */
     List<Event> getRawEvents(String aggregateId);
-
-    /**
-     * Retrieves all domain events belonging to a specific aggregate.
-     * 
-     * @param aggregateId
-     * @return
-     */
-    List<DomainEvent> get(String aggregateId);
 
     /**
      * Checks if an aggregate exists for the given aggregate ID

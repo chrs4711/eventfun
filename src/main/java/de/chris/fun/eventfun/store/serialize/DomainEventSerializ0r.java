@@ -9,7 +9,7 @@ import de.chris.fun.eventfun.store.Event;
  * @author Christian Wander
  *
  */
-public interface DomainEventSerializ0r {
+public interface DomainEventSerializ0r<T> {
 
     /**
      * Inform the serializer of the existing domain events. TODO: This is awkward.
@@ -17,17 +17,17 @@ public interface DomainEventSerializ0r {
      * 
      * @param knownDomainEventTypes
      */
-    public void setKnownDomainEventTypes(List<Class<? extends DomainEvent>> knownDomainEventTypes);
+    public void setKnownDomainEventTypes(List<Class<? extends DomainEvent<T>>> knownDomainEventTypes);
 
     /**
      * Returns the types of domain events the serializer knows about.
      * 
      * @return
      */
-    public List<Class<? extends DomainEvent>> getKnownDomainEventTypes();
+    public List<Class<? extends DomainEvent<T>>> getKnownDomainEventTypes();
 
-    public String serialize(DomainEvent event);
+    public String serialize(DomainEvent<T> event);
 
-    public DomainEvent deserialize(Event event);
+    public DomainEvent<T> deserialize(Event event);
 
 }

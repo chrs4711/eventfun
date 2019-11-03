@@ -1,12 +1,9 @@
 package de.chris.fun.eventfun.query;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 
-import de.chris.fun.eventfun.dtos.Cart;
-import de.chris.fun.eventfun.store.DomainEvent;
-import de.chris.fun.eventfun.store.EventStore;
+import de.chris.fun.eventfun.domain.Cart;
+import de.chris.fun.eventfun.store.EventRepository;
 
 /**
  * @author Christian Wander
@@ -15,18 +12,14 @@ import de.chris.fun.eventfun.store.EventStore;
 public class QueryService {
 
     @Autowired
-    private EventStore eventstore;
+    private EventRepository<Cart> eventstore;
 
     public Cart getCart(String id) {
 
         if (!eventstore.aggregateExists(id))
-            return null;
+            throw new CartNotFoundException(id);
 
-        return replay(eventstore.get(id));
-    }
-
-    private Cart replay(List<DomainEvent> events) {
-        return new Cart(); // TODO: implement it
+        return Cart.replay(eventstore.get(id));
     }
 
 }

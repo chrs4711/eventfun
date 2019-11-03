@@ -1,13 +1,20 @@
 package de.chris.fun.eventfun.store;
 
 /**
- * Marker interface for domain events. The event store accepts objects
- * implementing this interface and tries to serialize them to JSON (other
- * formats might be supported in future :-).
+ * Marks a class as a domain event.
  * 
  * @author Christian Wander
  *
  */
-public interface DomainEvent {
+public interface DomainEvent<T> {
+
+    /**
+     * Applies this event to a specific domain object.
+     * 
+     * @param object
+     *            The domain object
+     * @return The domain object after the event was applied to it.
+     */
+    public T apply(T object);
 
 }

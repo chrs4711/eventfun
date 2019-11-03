@@ -4,23 +4,23 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import de.chris.fun.eventfun.domainevents.CartCreated;
-import de.chris.fun.eventfun.domainevents.ItemAdded;
-import de.chris.fun.eventfun.domainevents.ItemRemoved;
-import de.chris.fun.eventfun.dtos.Item;
-import de.chris.fun.eventfun.store.EventStore;
+import de.chris.fun.eventfun.domain.Cart;
+import de.chris.fun.eventfun.domain.Item;
+import de.chris.fun.eventfun.domain.events.CartCreated;
+import de.chris.fun.eventfun.domain.events.ItemAdded;
+import de.chris.fun.eventfun.domain.events.ItemRemoved;
+import de.chris.fun.eventfun.store.EventRepository;
 
 /**
- * @author Christian Wander
- * 
- *         Receives commands (objects?) from clients, performs business
- *         validation/logic and fires the corresponding events when all is fine.
+ * Receives commands (objects?) from clients, performs business validation/logic
+ * and fires the corresponding events when all is fine.
  *
+ * @author Christian Wander
  */
 public class CartCommandService {
 
     @Autowired
-    private EventStore eventStore;
+    private EventRepository<Cart> eventStore;
 
     private static final Logger logger = LoggerFactory.getLogger(CartCommandService.class);
 

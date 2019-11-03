@@ -11,12 +11,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import de.chris.fun.eventfun.store.Aggregate;
-import de.chris.fun.eventfun.store.DomainEvent;
 import de.chris.fun.eventfun.store.Event;
 import de.chris.fun.eventfun.store.EventStore;
 import de.chris.fun.eventfun.store.NoSuchAggregateException;
-import de.chris.fun.eventfun.store.serialize.DomainEventSerializ0r;
-import de.chris.fun.eventfun.store.serialize.JsonSerializ0r;
 
 /**
  * @author Christian Wander
@@ -27,17 +24,10 @@ public class MemoryEventStore implements EventStore {
     private final Map<String, Event> eventMap = new HashMap<>();
     private final Map<String, Aggregate> aggMap = new HashMap<>();
 
-    private DomainEventSerializ0r serializ0r = new JsonSerializ0r();
-
     private static final Logger logger = LoggerFactory.getLogger(MemoryEventStore.class);
 
     @Override
-    public void setSerializ0r(DomainEventSerializ0r s) {
-        this.serializ0r = s;
-    }
-
-    @Override
-    public String save(DomainEvent event) {
+    public String save(String data, String eventType) {
 
         final Aggregate a = new Aggregate();
         final String aggregateId = UUID.randomUUID().toString();
@@ -47,13 +37,11 @@ public class MemoryEventStore implements EventStore {
         logger.debug("created new aggregate with id {}", a);
         aggMap.put(aggregateId, a);
 
-        save(event, aggregateId);
-
-        return aggregateId;
+        return save(data, eventType, aggregateId);
     }
 
     @Override
-    public String save(DomainEvent event, String aggregateId) {
+    public String save(String data, String eventType, String aggregateId) {
 
         if (!aggMap.containsKey(aggregateId))
             throw new NoSuchAggregateException(String.format("aggregate with id %s not found", aggregateId));
@@ -65,15 +53,17 @@ public class MemoryEventStore implements EventStore {
         final Event e = new Event();
         e.setAggregateId(aggregateId);
         e.setId(UUID.randomUUID().toString());
-        e.setType(event.getClass().getSimpleName());
+        e.setType(eventType);
         e.setVersion(newVersion);
-        e.setData(serializ0r.serialize(event));
+        e.setData(data);
 
         agg.setVersion(newVersion);
+
+        // magic happens here
+        eventMap.put(e.getId(), e);
+
         logger.debug("updating aggregate: {}", agg);
         logger.debug("saving event: {}", e);
-
-        eventMap.put(e.getId(), e);
 
         return aggregateId;
     }
@@ -96,16 +86,4 @@ public class MemoryEventStore implements EventStore {
     public boolean aggregateExists(String aggregateId) {
         return aggMap.containsKey(aggregateId);
     }
-
-    @Override
-    public List<DomainEvent> get(String aggregateId) {
-
-        if (!aggMap.containsKey(aggregateId))
-            throw new NoSuchAggregateException(String.format("aggregate with id %s not found", aggregateId));
-
-        return getRawEvents(aggregateId).stream()
-                .map(e -> serializ0r.deserialize(e))
-                .collect(Collectors.toList());
-    }
-
 }
