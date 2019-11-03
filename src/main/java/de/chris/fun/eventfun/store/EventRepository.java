@@ -57,6 +57,29 @@ public class EventRepository<T> {
         return eventStore.save(data, eventType, aggregateId);
     }
 
+    public T replayFor(Class<? extends T> c, String aggregateId) {
+
+        if (!aggregateExists(aggregateId))
+            throw new NoSuchAggregateException(aggregateId);
+
+        List<DomainEvent<T>> domainEvents = get(aggregateId);
+
+        T domainObject;
+        try {
+            // logger.debug("Creating domain object for class ...");
+            domainObject = c.newInstance();
+        } catch (InstantiationException | IllegalAccessException e) {
+            throw new ReplayException(e);
+        }
+
+        for (final DomainEvent<T> e : domainEvents) {
+            // logger.debug("Applying event to domain object: {}", e);
+            domainObject = e.apply(domainObject);
+        }
+
+        return domainObject;
+    }
+
     public boolean aggregateExists(String aggregateId) {
         return eventStore.aggregateExists(aggregateId);
     }

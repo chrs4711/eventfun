@@ -41,7 +41,7 @@ public class EventRepositoryTest {
     }
 
     @Test
-    public void replayEvents() {
+    public void replayTest2() {
 
         final DomainEvent<Cart> e = new CartCreated("test");
         final String aggId = eventRepo.save(e);
@@ -49,7 +49,7 @@ public class EventRepositoryTest {
         for (int i = 1; i <= 12; i++)
             eventRepo.save(itemAddedEvent(), aggId);
 
-        final Cart c = Cart.replay(eventRepo.get(aggId));
+        Cart c = eventRepo.replayFor(Cart.class, aggId);
         assertNotNull(c);
         assertEquals(12, c.getItems().size());
         System.out.println(c);
