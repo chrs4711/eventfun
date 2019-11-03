@@ -1,6 +1,7 @@
 package de.chris.fun.eventfun.store.jpa;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import org.slf4j.Logger;
@@ -49,10 +50,11 @@ public class SpringDataJPAEventStore implements EventStore {
     @Override
     public String save(DomainEvent event, String aggregateId) {
 
-        Aggregate agg = aggRepo.findOne(aggregateId);
-
-        if (agg == null)
+        Optional<Aggregate> result = aggRepo.findById(aggregateId);
+        if (!result.isPresent())
             throw new NoSuchAggregateException(String.format("aggregate with id %s doesn't exist.", aggregateId));
+
+        Aggregate agg = result.get();
 
         final long newVersion = agg.getVersion() + 1;
 
