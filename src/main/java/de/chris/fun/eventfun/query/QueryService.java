@@ -19,7 +19,7 @@ public class QueryService {
         if (!eventstore.aggregateExists(id))
             throw new CartNotFoundException(id);
 
-        return Cart.replay(eventstore.get(id));
+        return eventstore.replayFor(Cart.class, id);
     }
 
 }
